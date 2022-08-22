@@ -45,9 +45,10 @@ public class Class {
                 String st01 = blocks[1];
                 String st04 = blocks[4];
                 result = calculated(st01, st04, operation);
-                if (result.length() > 40) {
-                    String rez = result.substring(0, 40);
-                    System.out.println(rez + "...");
+                if (result.length() > 10) {
+                    String rez = result.substring(0, 10);
+                    System.out.println("fatal error");
+                    break;
                 } else {
                     System.out.println(result);
                 }
@@ -69,9 +70,10 @@ public class Class {
                     System.out.println("Tut chto-to ne to");
                 }
 
-                if (result.length() > 40) {
-                    String rez = result.substring(0, 40);
-                    System.out.println(rez + "...");
+                if (result.length() > 10) {
+                    String rez = result.substring(0, 10);
+                    System.out.println("fatal error");
+                    break;
                 } else {
                     System.out.println(result);
                 }
