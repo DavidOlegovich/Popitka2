@@ -6,7 +6,11 @@ public class StringCalc {
 
     public static void main(String[] args) throws Exception {
         String userInput = scanner.nextLine();
+        System.out.println(calc(userInput));
+    }
 
+
+    static String calc(String userInput) throws Exception {
         String oper = userInput.replaceAll("[^+\\-*/]", "");
 
         String[] blocks = userInput.split("[" + oper + "]");
@@ -19,7 +23,11 @@ public class StringCalc {
         if (left.length() > 10 || right.length() > 10) {
             throw new Exception("Dlina stroki bolee 10 simvolov");
         }
+        if (!isText(left)) {
+            throw new Exception("Pervim operandom doljen bit tekst");
+        }
 
+        left = left.substring(1, left.length() - 1);
 
         String result = "";
         switch (oper) {
@@ -28,10 +36,15 @@ public class StringCalc {
                 break;
             }
             case "-": {
+                if (!isText(right))
+                    throw new Exception("Vtoroi operand doljen bit tekst");
+                right = right.substring(1, right.length() - 1);
                 result = left.replaceAll(right, "");
                 break;
             }
             case "*": {
+                if (!isNumber(right))
+                    throw new Exception("Vtoroi operand doljen bit chislo");
                 int n = Integer.parseInt(right);
                 if (n < 1 || n > 10) {
                     throw new Exception("Nedopystimoe chislo");
@@ -42,6 +55,8 @@ public class StringCalc {
                 break;
             }
             case "/": {
+                if (!isNumber(right))
+                    throw new Exception("Vtoroi operand doljen bit chislo");
                 int n = Integer.parseInt(right);
                 if (n < 1 || n > 10) {
                     throw new Exception("Nedopystimoe chislo");
