@@ -14,13 +14,11 @@ public class StringCalc {
         String oper = userInput.replaceAll("[^+\\-*/]", "");
 
         String[] blocks = userInput.split("[" + oper + "]");
-        if (!blocks[0].startsWith("\"")) {
-            throw new Exception("Pervim operantom doljen bit tekst");
-        }
 
-        String left = blocks[0].trim().replaceAll("\"", "");
-        String right = blocks[1].trim().replaceAll("\"", "");
-        if (left.length() > 10 || right.length() > 10) {
+        String left = blocks[0].trim();
+        String right = blocks[1].trim();
+
+        if (left.length() > 12 || right.length() > 12) {
             throw new Exception("Dlina stroki bolee 10 simvolov");
         }
         if (!isText(left)) {
@@ -32,6 +30,9 @@ public class StringCalc {
         String result = "";
         switch (oper) {
             case "+": {
+                if (!isText(right))
+                    throw new Exception("Vtoroi operand doljen bit tekst");
+                right = right.substring(1, right.length() - 1);
                 result = left.concat(right);
                 break;
             }
@@ -68,6 +69,20 @@ public class StringCalc {
         if (result.length() > 40) {
             result = result.substring(0, 40) + "...";
         }
-        System.out.println("\"" + result + "\"");
+        return "\"" + result + "\"";
+    }
+
+    static boolean isText(String token) {
+        return token.startsWith("\"") && token.endsWith("\"");
+
+    }
+
+    static boolean isNumber(String token) {
+        try {
+            Integer.parseInt(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
